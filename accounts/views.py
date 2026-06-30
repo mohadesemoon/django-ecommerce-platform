@@ -60,7 +60,3 @@ class UserRegisterVerifyCodeView(View):
 
 
 
-
-
-
-
