@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
-
 from .managers import UserManager
 
 
@@ -16,7 +15,6 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['email', 'full_name']
 
-
     def __str__(self):
         return self.email
 
@@ -25,7 +23,6 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
 
     @property
     def is_staff(self):

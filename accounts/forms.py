@@ -2,8 +2,6 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from .models import User
-
-
 class UserCreationsForm(forms.ModelForm):
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='confirm password', widget=forms.PasswordInput)
@@ -26,12 +24,12 @@ class UserCreationsForm(forms.ModelForm):
         return user
 
 class UserChangeForm(forms.ModelForm):
+
     password = ReadOnlyPasswordHashField(help_text='you can change password <a href=\"../password/\" this form>')
 
     class Meta:
         model = User
         fields = ['email', 'phone_number', 'full_name', 'password', 'last_login']
-
 
 class UserRegistrationForm(forms.Form):
     email = forms.EmailField()
@@ -55,7 +53,6 @@ class UserRegistrationForm(forms.Form):
 
 class VerifyCodeForm(forms.Form):
     code = forms.IntegerField()
-
 
 class UserLoginForm(forms.Form):
     phone = forms.CharField(max_length=11)
