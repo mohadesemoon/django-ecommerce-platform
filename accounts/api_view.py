@@ -1,6 +1,4 @@
 import random
-
-from django.template.context_processors import request
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,12 +17,12 @@ class RegisterAPIView(APIView):
             cd = serializer.validated_data
 
             random_code = random.randint(1000, 9999)
-            send_otp_code(cd['phone'], random_code)
+            send_otp_code(cd['phone_number'], random_code)
 
-            OtpCode.objects.create(phone_number=cd['phone'], code=random_code)
+            OtpCode.objects.create(phone_number=cd['phone_number'], code=random_code)
 
             request.session['user_registration_info'] = {
-                'phone_number' : cd['phone'],
+                'phone_number' : cd['phone_number'],
                 'full_name'    : cd['full_name'],
                 'email'        : cd['email'],
                 'password'     : cd['password'],

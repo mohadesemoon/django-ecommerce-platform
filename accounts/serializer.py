@@ -3,9 +3,9 @@ from .models import User
 
 
 class RegisterSerializer(serializers.Serializer):
-    phone     = serializers.CharField(max_length=11)
+    phone_number     = serializers.CharField(max_length=11)
     full_name = serializers.CharField(max_length=255)
-    email     = serializers.EmailField()
+    email     = serializers.EmailField(max_length=255)
     password  = serializers.CharField(write_only=True, min_length=6)
 
     def validate_email(self, value):
