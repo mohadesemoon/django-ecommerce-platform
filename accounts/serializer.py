@@ -3,19 +3,23 @@ from .models import User
 
 
 class RegisterSerializer(serializers.Serializer):
-    phone_number     = serializers.CharField(max_length=11)
-    full_name = serializers.CharField(max_length=255)
-    email     = serializers.EmailField(max_length=255)
-    password  = serializers.CharField(write_only=True, min_length=6)
+    phone_number = serializers.CharField(max_length=11)
+    full_name    = serializers.CharField(max_length=255)
+    email        = serializers.EmailField()
+    password     = serializers.CharField(write_only=True, min_length=6)
 
     def validate_email(self, value):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("this email already exists.")
         return value
 
-    def validate_phone(self, value):
+    def validate_phone_number(self, value):
         if User.objects.filter(phone_number=value).exists():
             raise serializers.ValidationError("this phone number already exists.")
+        return value
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
 
 
 class VerifySerializer(serializers.Serializer):

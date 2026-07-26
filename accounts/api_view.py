@@ -3,8 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializer import RegisterSerializer, VerifySerializer, UserSerializer
-from .models import User, OtpCode
+from .serializer import RegisterSerializer
+from .models import OtpCode
 from utils import send_otp_code
 
 class RegisterAPIView(APIView):
@@ -28,7 +28,7 @@ class RegisterAPIView(APIView):
                 'password'     : cd['password'],
             }
             return Response({'message': 'OTP send successfully'}, status=status.HTTP_200_OK)
-        return Response(serializer.email, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
