@@ -77,7 +77,7 @@ class UserLoginView(View):
                 messages.success(request, 'you logged in successfully', 'info')
                 return redirect('home:home')
             messages.error(request, 'phone number or password was wrong', 'warning')
-            return redirect(request, self.template_name, {'form':form})
+            return render(request, self.template_name, {'form':form})
 
 class UserLogOutView(LoginRequiredMixin, View):
     def get(self, request):
